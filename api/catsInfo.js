@@ -7,7 +7,8 @@ router.get('/',async (ctx)=>{
 router.post('/',async (ctx)=>{
 	let data=ctx.request.body;
 	console.log(data);
-	ctx.body=await DB.add('catsInfo',data);
+	ctx.body=data;
+	// ctx.body=await DB.add('catsInfo',data);
 });
 
 module.exports=router;

@@ -7,7 +7,7 @@ let crypto=require('crypto');
 router.get('/all',async (ctx)=>{
 	const data=await DB.find('sellerInfo',{});
 	ctx.body=data;
-})
+});
 
 //商家登陆
 router.get('/',async (ctx)=>{
@@ -58,7 +58,7 @@ router.post('/',async (ctx)=>{
 		"phone":data.phone
 	});
 	const b= await DB.find('sellerInfo',{
-		"shop_name":data.shop_name_name
+		"shop_name":data.shop_name
 	});
 	if(a.length){
 		ctx.body={

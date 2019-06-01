@@ -16,8 +16,23 @@ router.use('/adminInfo',require('./api/adminInfo.js').routes());
 router.use('/catsVariety',require('./api/catsVariety.js').routes());
 
 router.get('/test',async (ctx)=>{
-    
-    ctx.body='test';
+    console.log('--Get---');
+    console.log(ctx.request.query);
+    ctx.body=ctx.request.query;
 });
-
+router.post('/test',async (ctx)=>{
+    console.log('--Post---');
+    console.log(ctx.request.body);
+    ctx.body=ctx.request.body;
+});
+router.delete('/test',async (ctx)=>{
+    console.log('--Delete---');
+    console.log(ctx.request.query);
+    ctx.body=ctx.request.query;
+});
+router.patch('/test',async (ctx)=>{
+    console.log('--Patch---');
+    console.log(ctx.request.body);
+    ctx.body=ctx.request.body;
+});
 module.exports=router;
