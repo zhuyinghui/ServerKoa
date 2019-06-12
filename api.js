@@ -1,19 +1,13 @@
 let router=require('koa-router')();
 let DB=require('./module/connectMongodb');
-//商品管理—— 商品列表 商品添加
 router.use('/goodsInfo',require('./api/goodsInfo.js').routes());
-//商品管理—— 宠物猫列表 宠物添加
 router.use('/catsInfo',require('./api/catsInfo.js').routes());
-
-//卖家管理——卖家审核 
 router.use('/sellerInfo',require('./api/sellerInfo.js').routes());
-//获取、提交地址
 router.use('/addressInfo',require('./api/addressInfo.js').routes());
-
-//管理员管理
 router.use('/adminInfo',require('./api/adminInfo.js').routes());
-//宠物猫分类管理
 router.use('/catsVariety',require('./api/catsVariety.js').routes());
+router.use('/userInfo',require('./api/userInfo.js').routes());
+router.use('/orderInfo',require('./api/orderInfo.js').routes());
 
 router.get('/test',async (ctx)=>{
     console.log('--Get---');
@@ -25,6 +19,30 @@ router.post('/test',async (ctx)=>{
     console.log(ctx.request.body);
     ctx.body=ctx.request.body;
 });
+
+let multer=require('koa-multer');
+let storage = multer.diskStorage({
+	//文件保存路径
+	destination: function (req, file, cb) {
+	  cb(null, './uploads/')
+	},
+	filename:function(req,file,cb){
+	var fileFormat = (file.originalname).split(".");
+	cb(null,Date.now() + "." + fileFormat[fileFormat.length - 1]);
+	}
+  })
+  //加载配置
+  let upload = multer({ storage: storage });
+  //路由
+router.post('/file',upload.array('file'),async(ctx,next)=>{
+    console.log(ctx.req.body);
+    console.log(ctx.req.files);
+    ctx.body={
+        body:ctx.req.body,
+        file:ctx.req.files
+    }
+})
+
 router.delete('/test',async (ctx)=>{
     console.log('--Delete---');
     console.log(ctx.request.query);

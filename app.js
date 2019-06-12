@@ -4,10 +4,17 @@ let cors = require('koa2-cors');
 //bodyparser获取表单提交数据
 let bodyParser=require('koa-bodyparser');
 
+const path = require('path')
+const static = require('koa-static')
+
 let app=new Koa();
 
-app.use(bodyParser());
+//配置静态资源目录
+app.use(static(
+	path.join( __dirname,'./uploads')
+  ))
 
+app.use(bodyParser());
 //配置session
 // let session = require('koa-session');
 // app.keys = ['some secret hurr'];
