@@ -35,11 +35,11 @@ let storage = multer.diskStorage({
   let upload = multer({ storage: storage });
   //路由
 router.post('/file',upload.array('file'),async(ctx,next)=>{
-    console.log(ctx.req.body);
-    console.log(ctx.req.files);
+    console.log(ctx.request.body);
+    console.log(ctx.request.files);
     ctx.body={
-        body:ctx.req.body,
-        file:ctx.req.files
+        body:ctx.request.body,
+        file:ctx.request.files
     }
 })
 
